@@ -3,7 +3,7 @@
  * @Company: kaochong
  * @Date: 2020-05-22 00:11:06
  * @LastEditors: xiuquanxu
- * @LastEditTime: 2020-05-22 00:33:06
+ * @LastEditTime: 2020-05-27 22:59:20
  */ 
 #include <iostream>
 
@@ -14,7 +14,7 @@ class Box {
         string type;
 
     public:
-        Box::Box();
+        Box();
         void setSize(int size);
         void setType(string type);
         int getSize();

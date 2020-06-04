@@ -3,15 +3,42 @@
  * @Company: kaochong
  * @Date: 2020-05-26 00:20:10
  * @LastEditors: xiuquanxu
- * @LastEditTime: 2020-06-04 14:02:39
+ * @LastEditTime: 2020-06-05 00:45:35
 */ 
 #include "MP4Ftyp.h"
 #include <fstream>
 #include <stdlib.h>
+#include <map>
 
 #define MAX_BOX_PAYLOAD 0xff
 
 using namespace std;
+
+class BoxStruct {
+    public:
+        Box box;
+        string parent_type;
+};
+// Todo box记录使用数组实现
+
+class Test {
+    public:
+        int age;
+        string name;
+        Test();
+        Test(int age, string name);
+};
+
+Test::Test() {
+    
+}
+
+Test::Test(int age, string name ) {
+   this->age = age;
+   this->name = name;
+};
+
+map<string, Test> box_map;
 
 int char2int(char *buf) {
     cout << " c1:" << buf[0] << " c2:" << buf[1] << "c3:" << buf[2] << "c4:" << buf[3] << endl;
@@ -19,6 +46,13 @@ int char2int(char *buf) {
 }
 
 int main() {
+    Test t;
+    t.age = 100;
+    t.name = "xxq";
+    box_map.insert(pair<string, Test>("xx", t));
+    Test value = box_map["xx"];
+    cout << " value" << value.age << value.name << endl;
+    return 0;
     string input_path = "/Users/xuxiuquan/mygithub/mp4box/src/test.mp4";
     ifstream ifs;
     ifs.open(input_path);

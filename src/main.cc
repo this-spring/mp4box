@@ -3,7 +3,7 @@
  * @Company: kaochong
  * @Date: 2020-05-26 00:20:10
  * @LastEditors: xiuquanxu
- * @LastEditTime: 2020-06-05 00:45:35
+ * @LastEditTime: 2020-06-29 00:24:56
 */ 
 #include "MP4Ftyp.h"
 #include <fstream>
@@ -45,6 +45,11 @@ int char2int(char *buf) {
     return ((*(buf+ 3))&0xFF) | ((*(buf+2))&0xFF) << 8 | ((*(buf+1))&0xFF) << 16 | ((*(buf))&0xFF) << 24; 
 }
 
+typedef struct {
+    uint32_t size;
+    char type[4];
+} Header;
+
 int main() {
     Test t;
     t.age = 100;
@@ -52,7 +57,7 @@ int main() {
     box_map.insert(pair<string, Test>("xx", t));
     Test value = box_map["xx"];
     cout << " value" << value.age << value.name << endl;
-    return 0;
+    // return 0;
     string input_path = "/Users/xuxiuquan/mygithub/mp4box/src/test.mp4";
     ifstream ifs;
     ifs.open(input_path);
@@ -82,6 +87,9 @@ int main() {
        box_type[3] = buffer[position + 7];
        position += bsize;
        std::cout << " box type:" << box_type[0] << box_type[1] << box_type[2] << box_type[3] << endl;
+       if (strncmp("ftyp", box_type, 4) == 0) {
+           std::cout << " yes this is ftyp box" << endl;
+       }
     }
     // return;
     // // ifs.seekg(0, ios::end);
